@@ -1,6 +1,10 @@
-A movie is identified by an id, and has a title, a director, and a year.
- A director is identified by a name.
- A topMovie is identified by an id.
- A scoreAssignment is identified by an id, and by a value.
- A waiter is identified by a name.
-Whenever there is a director with name X different from spielberg then we can have at most 1 topmovie with id I such that there is a movie with director X, and with id I.
+A time is a temporal concept expressed in steps ranging from 1 to 10.
+A joint is identified by an id.
+An angle is identified by a value.
+A position is identified by a joint, by an angle, and by a time.
+A link is identified by a first joint, and by a second joint.
+A rotation is identified by a first joint, by a second joint, by a desired angle, by a current angle, and by a time.
+A goal is identified by a joint, and by an angle.
+granularity is a constant equal to 90.
+timemax is a constant equal to 90.
+It is required that the first joint J1 of the rotation R is greater than the second joint J2 of the rotation R, whenever there is a rotation R with first joint J1, with second joint J2.

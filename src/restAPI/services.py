@@ -30,12 +30,6 @@ def cnl2asp():
 
 def cnl2aspImpl(user_input, sentence):
     result = ""
-    uiFileDisk = os.path.join(os.path.dirname(__file__), "user_input.cnl")
-    with open(uiFileDisk, "w") as uiFile:
-        uiFile.seek(0)     
-        for ui in user_input:               
-            uiFile.write(ui + "\n")  
-
     cnlFileDisk = os.path.join(os.path.dirname(__file__), "cnl.cnl")
     with open(cnlFileDisk, "w") as cnlFile:
         cnlFile.seek(0)             
