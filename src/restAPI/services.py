@@ -1,6 +1,7 @@
 import flask
 from flask import Flask, jsonify,request
 import sys, os
+import json
 
 app = flask.Flask(__name__)
 app.json.sort_keys = False
@@ -11,14 +12,39 @@ from asp2cnl.parser import ASPParser
 
 @app.route("/generate_joint", methods=["POST"])
 def generate_joint():   
+    isCnl2Asp = (request.args.get('cnl2asp') != None)    
     input_json = request.get_json()     
     user_input = input_json.get("user_input")
     sentences = input_json.get("sentences")
+    sentencesAggr = ""
     for sentence in sentences:
-        sentence.get("cnl")
-        sentence["asp"] = cnl2aspImpl(user_input, sentence.get("cnl"))
+        if isCnl2Asp:
+            sentence.get("cnl")
+            sentence["asp"] = cnl2aspImpl(user_input, sentence.get("cnl"))
+        else:
+            sentence.get("asp")
+            sentence["cnl"] = asp2cnlImpl(user_input, sentence.get("asp"))
+        sentencesAggr = sentencesAggr + "\n" + sentence.get("cnl")
+
+    input_json.update(jointFromCnl(user_input, sentencesAggr))    
     return jsonify(input_json)
 
+
+def jointFromCnl(user_input, sentences):
+    result = ""
+    cnlFileDisk = os.path.join(os.path.dirname(__file__), "cnlJoint.cnl")
+    with open(cnlFileDisk, "w") as cnlFile:
+        cnlFile.seek(0)             
+        for ui in user_input:               
+            cnlFile.write(ui + "\n")        
+        cnlFile.write(sentences)
+
+    with open(cnlFileDisk, "r") as in_file:                    
+        cnl2asp = Cnl2asp(in_file)
+        result = cnl2asp.cnl_to_json()   
+       
+    #return json.loads(str(json.dumps(result)))
+    return result
 
 
 @app.route("/cnl2asp", methods=["POST"])
@@ -40,7 +66,8 @@ def cnl2aspImpl(user_input, sentence):
     with open(cnlFileDisk, "r") as in_file:                    
         cnl2asp = Cnl2asp(in_file)
         result = cnl2asp.compile()            
-    return result                    
+    return result  
+
 
 @app.route("/asp2cnl", methods=["POST"])
 def asp2cnl():      
