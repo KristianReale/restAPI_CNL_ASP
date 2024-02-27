@@ -1,7 +1,8 @@
 import streamlit as st
 import requests, json
 
-URL = "http://localhost:5000"
+#URL = "http://localhost:5000"
+URL = "https://super-pancake-vw94vpvv7qhwww9-5000.app.github.dev"
 
 asp_input = None
 cnl_output = None
