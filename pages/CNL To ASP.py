@@ -2,13 +2,15 @@ import streamlit as st
 import requests, json
 
 #URL = "http://localhost:5000"
-URL = "http://super-pancake-vw94vpvv7qhwww9-5000.app.github.dev"
+URL = "https://obscure-space-xylophone-rwq9g4j9r6fw69-5000.app.github.dev/"
 
 asp_input = None
 cnl_output = None
 
 def callService(service, user_input, sentence, rule): 
    user_input = user_input.replace('.', '.&')[:-1].split("&")   
+   print(user_input)
+   print(rule)
    jsonS = {"user_input": user_input,"cnl": sentence,"asp": rule}      
    response = requests.post(URL + "/" + service, data=json.dumps(jsonS), headers={"Content-Type": "application/json"})
    

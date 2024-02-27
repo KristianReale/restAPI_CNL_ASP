@@ -73,7 +73,7 @@ def cnl2aspImpl(user_input, sentence):
 def asp2cnl():      
     input_json = request.get_json()    
     user_input = input_json.get("user_input")
-    rule = input_json.get("asp") + "\n"
+    rule = input_json.get("asp") + "\n"    
     return asp2cnlImpl(user_input, rule)    
 
 def asp2cnlImpl(user_input, rule):      
