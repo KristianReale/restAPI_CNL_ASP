@@ -3,7 +3,7 @@ from flask import Flask, jsonify,request
 import sys, os
 import json
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, template_folder='Templates')
 app.json.sort_keys = False
 
 from cnl2asp.cnl2asp import Cnl2asp

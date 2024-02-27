@@ -1,10 +1,19 @@
 import streamlit as st
 
-st.set_page_config(
-    page_title="ASP-CNL Tool",
-    page_icon="👋",
-)
+from restAPI.services import *
 
-st.write("# Welcome to the ASP-CNL rewriters! 👋")
+def startWebApp():
+    st.set_page_config(
+        page_title="ASP-CNL Tool",
+        page_icon="👋",
+    )
 
-st.sidebar.success("Select a demo above.")
+    st.write("# Welcome to the ASP-CNL rewriters! 👋")
+
+    st.sidebar.success("Select a demo above.")
+
+if __name__ == "__main__":    
+    startWebApp()
+
+   
+
