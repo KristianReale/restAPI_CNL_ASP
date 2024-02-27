@@ -1,7 +1,5 @@
 import streamlit as st
 
-from restAPI.services import *
-
 def startWebApp():
     st.set_page_config(
         page_title="ASP-CNL Tool",
