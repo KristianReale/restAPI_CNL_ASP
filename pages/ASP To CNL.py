@@ -2,7 +2,7 @@ import streamlit as st
 import requests, json
 
 #URL = "http://localhost:5000"
-URL = "https://asp2cnl.pythonanywhere.com/asp2cnl/"
+URL = "https://asp2cnl.pythonanywhere.com/"
 
 asp_input = None
 cnl_output = None
