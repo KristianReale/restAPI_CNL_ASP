@@ -2,6 +2,9 @@ import flask
 from flask import Flask, jsonify,request
 import sys, os
 import json
+import requests
+
+OPENCHAT_SERVICE_URL = f"http://160.97.63.235:5000/cnl2nl_openchat"
 
 app = flask.Flask(__name__, template_folder='Templates')
 app.json.sort_keys = False
@@ -74,7 +77,24 @@ def asp2cnl():
     input_json = request.get_json()    
     user_input = input_json.get("user_input")
     rule = input_json.get("asp") + "\n"    
-    return asp2cnlImpl(user_input, rule)    
+    return asp2cnlImpl(user_input, rule)  
+
+@app.route("/asp2nl", methods=["POST"])
+def asp2nl():    
+    global OPENCHAT_SERVICE_URL
+    input_json = request.get_json()    
+    user_input = input_json.get("user_input")
+    rule = input_json.get("asp") + "\n" 
+    cnl = asp2cnlImpl(user_input, rule)
+    data_to_send = {'cnl': cnl}
+    nl = make_request_to_nl_service(service_url=OPENCHAT_SERVICE_URL, data=json.dumps(data_to_send))
+    return {'model': 'openchat', 'cnl': cnl.replace('\n',''), 'nl': nl}
+     
+
+def make_request_to_nl_service(service_url='', data=None):
+    response = requests.post(service_url, data=data, headers={"Content-Type": "application/json"})
+    response_dict = json.loads(response.text)
+    return response_dict['response'].strip()
 
 def asp2cnlImpl(user_input, rule):      
     result = ""
@@ -100,4 +120,3 @@ def asp2cnlImpl(user_input, rule):
         aspFile.close()
 
     return result
-        
