@@ -4,18 +4,25 @@ import sys, os
 import json
 import requests
 
+from cnl2asp.cnl2asp import Cnl2asp
+from sdl.grammar import *
+from sdl.error_messages import *
+
 OPENCHAT_SERVICE_URL = f"http://160.97.63.235:5000/cnl2nl_openchat"
 
 app = flask.Flask(__name__, template_folder='Templates')
 app.json.sort_keys = False
 
-from cnl2asp.cnl2asp import Cnl2asp
-from asp2cnl.compiler import compile
+import os
+#sys.path += [os.path.abspath(__file__ + "/..")]
+
+from cnl2asp import cnl2asp
+from asp2cnl.compiler import compile_rule
 from asp2cnl.parser import ASPParser
 
 @app.route("/generate_joint", methods=["POST"])
 def generate_joint():   
-    isCnl2Asp = (request.args.get('cnl2asp') != None)    
+    isCnl2Asp = (request.args.get('cnl2asp') != None)
     input_json = request.get_json()     
     user_input = input_json.get("user_input")
     sentences = input_json.get("sentences")
@@ -115,8 +122,33 @@ def asp2cnlImpl(user_input, rule):
 
     with open(aspFileDisk, "r") as aspFile2:                   
         definitions = ASPParser(aspFile2.read()).parse()                       
-        compiled = compile(definitions[-1], symbols)       
+        compiled = compile_rule(definitions[-1], symbols)
         result = result + compiled + "\n" 
         aspFile.close()
 
+    return result
+
+@app.route("/sdl", methods=["POST"])
+def sdl():
+    input_json = request.get_json()
+    user_input = input_json.get("sdl_input")
+    return sdlImpl(user_input)
+
+def sdlImpl(code):
+    result = ""
+    try:
+        tree = build_tree(code)
+        asp = ""
+        destination_file = "outputsdl.py"
+        f = open(f"{destination_file}", "w")
+        f.write(str(tree))
+        execution_string = execute("clingo", asp)
+        f.write(execution_string)
+        f.close()
+        #subprocess.run(["python", f"{destination_file}"])
+        result = subprocess.check_output(["python", f"{destination_file}"]).decode()
+    except exceptions.LarkError as e:
+        print(f"Parsing error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
     return result

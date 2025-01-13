@@ -1,0 +1,34 @@
+A vGUESS is identified by a value.
+A date is a temporal concept expressed in days ranging from 03/12/2019 to 03/12/2019.
+A time is a temporal concept expressed in minutes ranging from 12:00 AM to 11:00 PM with a length of 60 minutes.
+A vC_P is identified by a date, by a time, and has a value.
+A vC_M is identified by a date, by a time, and has a value.
+A vP is identified by a date, by a time, and has a value.
+A vQ is identified by a date, by a time, and has a value.
+A vE_P1 is identified by a date, by a time, and has a value.
+A vE_M1 is identified by a date, by a time, and has a value.
+A vS_P1 is identified by a date, by a time, and has a value.
+A vS_M1 is identified by a date, by a time, and has a value.
+A vCREG_PLUS is identified by a date, by a time, and has a value.
+A vCREG_MINUS is identified by a date, by a time, and has a value.
+A vPUN is identified by a date, by a time, and has a value.
+A vPZ is identified by a date, by a time, and has a value.
+A vPOFF_PLUS is identified by a date, by a time, and has a value.
+A vPOFF_MINUS is identified by a date, by a time, and has a value.
+A vCostCharge1 has a value.
+A vCostDischarge1 has a value.
+A vPAP has a value.
+A vPVP has a value.
+A vPercentage_Ps1 has a value.
+A vPercentage_Ms1 has a value.
+A vOVER_I is identified by a date, by a time, and has a value.
+A vUNDER_I is identified by a date, by a time, and has a value.
+A vEMin1 has a value.
+A vEMax1 has a value.
+A vCapTotMax_1 has a value.
+A vCapTotMax_S1 has a value.
+A vSOC is identified by a date, by a time, and has a value.
+A vSOC_S is identified by a date, by a time, and has a value.
+A vEMinS1 has a value.
+A vEMaxS1 has a value.
+
