@@ -38,6 +38,7 @@ RUN pip install -r streamlit/requirements.txt
 
 ADD cnl2asp cnl2asp
 ADD asp2cnl asp2cnl
+ADD sdl sdl
 
 # RUN python -m pip install --upgrade pip
 
@@ -49,12 +50,13 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \    
     python -m pip install -r requirements.txt
 
-RUN python -m pip install cnl2asp/.
-RUN python -m pip install asp2cnl/.
+#RUN python -m pip install cnl2asp/.
+#RUN python -m pip install asp2cnl/.
 
 
 # Copy the source code into the container.
 COPY . .
+ADD entrypoint.sh entrypoint.sh
 RUN chmod -R 777 .
 
 # Switch to the non-privileged user to run the application.
@@ -69,6 +71,7 @@ EXPOSE 8501
 
 #CMD nohup python app.py && 
 
-ADD entrypoint.sh entrypoint.sh
+
+#RUN chmod 777 entrypoint.sh
 #CMD nohup streamlit run "CNL ASP Solutions.py" --server.port=8501 --server.address=0.0.0.0 
 ENTRYPOINT /app/entrypoint.sh

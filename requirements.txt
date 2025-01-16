@@ -1,3 +1,5 @@
 Flask==2.3.2
 multipledispatch
-pyspel
+lark==1.1.9
+pyspel==1.0.2
+inflect

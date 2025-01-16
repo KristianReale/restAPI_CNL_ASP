@@ -1,6 +1,0 @@
-{match(X,Y)} :- set("set1",X), set("set2",Y).
-positivematch(X,Y) :- match(X,Y), Y < X.
-negativematch(X,Y) :- match(X,Y), Y > X.
-:- #count{match(E,MTCH_SCND): match(E,MTCH_SCND)} != 1, set("set1",E).
-:- #count{match(MTCH_FRST,E): match(MTCH_FRST,E)} != 1, set("set2",E).
-:- #count{positivematch(PSTVMTCH_FRST,PSTVMTCH_SCND): positivematch(PSTVMTCH_FRST,PSTVMTCH_SCND)} = CNT, #count{negativematch(NGTVMTCH_FRST,NGTVMTCH_SCND): negativematch(NGTVMTCH_FRST,NGTVMTCH_SCND)} = CNT1, CNT != CNT1.

@@ -4,9 +4,10 @@ import sys, os
 import json
 import requests
 
+import sdl.grammar
 from cnl2asp.cnl2asp import Cnl2asp
 from sdl.grammar import *
-from sdl.error_messages import *
+import importlib
 
 OPENCHAT_SERVICE_URL = f"http://160.97.63.235:5000/cnl2nl_openchat"
 
@@ -139,14 +140,19 @@ def sdlImpl(code):
     try:
         tree = build_tree(code)
         asp = ""
+        if get_asp_block() != "":
+            asp += f"""problem{get_number()}.add(\"\"\"{get_asp_block()}\"\"\")"""
         destination_file = "outputsdl.py"
         f = open(f"{destination_file}", "w")
         f.write(str(tree))
-        execution_string = execute("clingo", asp)
+
+        execution_string = execute("sdl/clingo", asp)
         f.write(execution_string)
         f.close()
-        #subprocess.run(["python", f"{destination_file}"])
-        result = subprocess.check_output(["python", f"{destination_file}"]).decode()
+        reset()
+        subprocess.run(["python", f"{destination_file}"])
+        result = subprocess.check_output(["python", f"{destination_file}"],  stderr=subprocess.STDOUT, text=True)
+
     except exceptions.LarkError as e:
         print(f"Parsing error: {e}")
     except Exception as e:

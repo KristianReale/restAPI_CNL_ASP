@@ -6,7 +6,7 @@ def startWebApp():
         page_icon="👋",
     )
 
-    st.write("# Welcome to the ASP-CNL rewriters! 👋")
+    st.write("# Welcome to the Declarative Rewriters! 👋")
 
     st.sidebar.success("Select a demo above.")
 

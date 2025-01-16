@@ -7,7 +7,7 @@ from optparse import OptionParser
 from lark import Lark, Transformer, exceptions, Token
 from collections import defaultdict
 
-import sdl.error_messages
+import sdl.error_messages as error_messages
 
 
 class Graph:
@@ -1947,6 +1947,30 @@ class CheckTransformer(Transformer):
         self.guess_count += 1
         return args
 
+def reset():
+    global records
+    global guess
+    global guess_alias
+    global guess_records
+    global number
+    global g
+    global num_pred
+    global num
+    global list_show
+    global asp_block
+    global recursive
+
+    records = {}
+    guess = {}
+    guess_alias = {}
+    guess_records = {}
+    number = 0
+    g = Graph()
+    num_pred = {}
+    num = 0
+    list_show = []
+    asp_block = ""
+    recursive = False
 
 def build_tree(code: str):
     with open(os.path.join(os.path.dirname(__file__), "grammar.lark"), "r") as grammar:
@@ -1955,6 +1979,11 @@ def build_tree(code: str):
         parser_records.parse(code)
         parser_check = Lark(grammar_, parser='lalr', transformer=CheckTransformer())
         return parser_check.parse(code)
+def get_asp_block():
+    return asp_block
+
+def get_number():
+    return number
 
 
 def check_graph():

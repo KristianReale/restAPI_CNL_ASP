@@ -22,8 +22,8 @@ def callService(service, user_input, sentence, rule):
 st.title('CNL2ASP')
 # Forms can be declared using the 'with' syntax
 #with st.form(key='my_form'):
-user_input = st.text_input(label='User Input', value="A movie is identified by an id, and has a title, a director, and a year. A director is identified by a name. A topMovie is identified by an id. A scoreAssignment is identified by an id, and by a value. A waiter is identified by a name.")
-cnl_input = st.text_input(label='Cnl Sentence', value="Whenever there is a director with name X different from spielberg then we can have at most 1 topmovie with id I such that there is a movie with director X, and with id I.")
+user_input = st.text_area(label='User Input', value="A movie is identified by an id, and has a title, a director, and a year. A director is identified by a name. A topMovie is identified by an id. A scoreAssignment is identified by an id, and by a value. A waiter is identified by a name.")
+cnl_input = st.text_area(label='Cnl Sentence', value="Whenever there is a director with name X different from spielberg then we can have at most 1 topmovie with id I such that there is a movie with director X, and with id I.")
 asp_output = st.text('ASP Output Rule')
 toAspButton = st.button(label='Translate to ASP', on_click=callService("cnl2asp", user_input, cnl_input, ""))
 

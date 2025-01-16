@@ -34,6 +34,7 @@ guess from Node
 deny from Assign as a1, Assign as a2, Edge
 	where a1.node != a2.node and a1.color == a2.color and 
         	Edge.first == a1.node and Edge.second == a2.node;
+@asp_block $node(1).node(2).node(3).edge(1,2).edge(2,3).color("red").color("green").color("blue").$
 
 show Assign;""")
 execution_output = st.text('Results')
