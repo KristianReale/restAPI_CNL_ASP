@@ -57,6 +57,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 # Copy the source code into the container.
 COPY . .
 ADD entrypoint.sh entrypoint.sh
+RUN printf '#!/bin/sh\nexec /app/sdl/clingo "$@"\n' > /usr/local/bin/clingo \
+    && chmod +x /usr/local/bin/clingo
+
 RUN chmod -R 777 .
 
 # Switch to the non-privileged user to run the application.

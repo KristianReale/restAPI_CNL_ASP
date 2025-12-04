@@ -146,7 +146,8 @@ def sdlImpl(code):
         f = open(f"{destination_file}", "w")
         f.write(str(tree))
 
-        execution_string = execute("sdl/clingo", asp)
+        #execution_string = execute("sdl/clingo", asp)
+        execution_string = execute("clingo", asp)
         f.write(execution_string)
         f.close()
         reset()
